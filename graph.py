@@ -35,7 +35,7 @@ class Graph:
     def check_valid(self, state):
         return state == self.final_state
 
-    def __get_final_state(self):
+    def __get_final_state(self): #change to snail!
         state = [i for i in range(1, self.len + 1)]
         state[self.len - 1] = 0
         return tuple(state)
@@ -45,7 +45,7 @@ class Graph:
         l[to], l[zero] = l[zero], l[to]
         return (tuple(l), to)
 
-    def draw(self, node):
+    def draw(self, node): #node cell array
         i = 0
         while i < len(node):
             if (((i + 1) % self.size)):
