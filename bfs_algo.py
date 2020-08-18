@@ -2,8 +2,6 @@ from queue import *
 import draw as draw
 import heuristic as h
 
-
-
 # def calc_priority(heuristic, state, graph):
 #     priority = 0
 #     if "md" in heuristic:
@@ -13,7 +11,8 @@ import heuristic as h
 #     if "lc" in heuristic:
 #         priority += h.linear_conflict(state, graph)
 
-def uniform_cost_search(graph, start): #start = (state, zero_pos)
+
+def uniform_cost_search(graph, start): # = breadth_first_search == dejstra
     print("\nuniform_cost_search:\n")
     frontier = PriorityQueue()
     frontier.put(start, 0)
@@ -21,15 +20,11 @@ def uniform_cost_search(graph, start): #start = (state, zero_pos)
     came_from[start[0]] = None
     level = {} #cost
     level[start[0]] = 0
-    
     while not frontier.empty():
         current = frontier.get()
         current_level = level[current[0]] + 1
-
         if (graph.check_valid(current[0])):
-            graph.draw(current[0])
             break
-        
         for next in graph.neighbors(current):
             if next[0] not in came_from:
                 priority = current_level
@@ -49,13 +44,11 @@ def gready_search(graph, start, heuristic):
         current = frontier.get()
 
         if (graph.check_valid(current[0])):
-            graph.draw(current[0])
-            graph.final_state = current[0]
             break
 
         for next in graph.neighbors(current):
             if next[0] not in came_from:
-                priority = heuristic(next, graph) + h.linear_conflict(next, graph)
+                priority = heuristic(next, graph)# + h.linear_conflict(next, graph) #???
                 frontier.put(next, priority)
                 came_from[next[0]] = current[0]
     draw.print_result(graph, frontier, came_from)
@@ -74,13 +67,11 @@ def a_star(graph, start, heuristic):
         current_level = level[current[0]] + 1
 
         if (graph.check_valid(current[0])):
-            graph.draw(current[0])
-            graph.final_state = current[0]
             break
         for next in graph.neighbors(current):
-            # if (next[0] not in came_from or level[next[0]] > current_level):
-            if (next[0] not in came_from):
-                priority = heuristic(next, graph) + current_level + h.linear_conflict(next, graph)
+            if (next[0] not in came_from or level[next[0]] > current_level):
+            #if (next[0] not in came_from):
+                priority = heuristic(next, graph) + current_level #+ h.linear_conflict(next, graph)
                 frontier.put(next, priority)
                 came_from[next[0]] = current[0]
                 level[next[0]] = current_level

@@ -1,0 +1,16 @@
+26931
+We are starting frome this instance
+8 1 2
+0 4 3
+7 5 6
+
+and using a_star search algorithm with manhattan heuristic function
+
+A*:
+
+1 2 3
+4 5 6
+7 8 0
+
+Total number of states in the opened set  64
+Maximum number of states in memory        116
