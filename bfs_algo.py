@@ -81,7 +81,6 @@ def a_star(graph, start, heuristic):
 def ida_search(graph, start, heuristic):
     print("ida search in developing")
 
-
 algo_dic = {
     "uniform_cost" : uniform_cost_search,
     "greedy" : gready_search,

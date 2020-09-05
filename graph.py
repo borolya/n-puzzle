@@ -14,7 +14,7 @@ class Graph:
         came_from = {}
         level = {}
         frontier = PriorityQueue()
-        frontier.put((self.final_state, self.len - 1), 0) #(state, zero) priority
+        frontier.put((self.final_state, self  .len - 1), 0) #(state, zero) priority
         level[self.final_state] = 0
         came_from[self.final_state] = 0
 
@@ -35,9 +35,45 @@ class Graph:
     def check_valid(self, state):
         return state == self.final_state
 
-    def __get_final_state(self): #change to snail!
-        state = [i for i in range(1, self.len + 1)]
-        state[self.len - 1] = 0
+    #def __get_final_state(self): #change to snail!
+    #    state = [i for i in range(1, self.len + 1)]
+    #    state[self.len - 1] = 0
+    #    return tuple(state)
+
+    def __get_final_state(self): #snail!
+        size = self.size
+        dist = size
+        state = [0] * self.len
+        numb = 1
+        current_cell = 0
+        while dist > 0:
+            for i in range(current_cell, current_cell+dist):
+                state[i] = numb
+                numb +=1
+            dist -=1
+            current_cell = i + size
+            #if numb == self.len: check!!!!
+            #    break
+            for i in range(current_cell, current_cell + dist*size, size): 
+                state[i] = numb
+                numb +=1
+            if numb == self.len:
+                break
+            current_cell = i -1
+            for i in range(current_cell, current_cell - dist, -1):
+                state[i] = numb
+                numb +=1
+            #if numb == self.len:
+            #    break
+            current_cell = i - size
+            dist -=1
+            for i in range(current_cell, current_cell - dist*size, -size):
+                state[i] = numb
+                numb +=1
+            if numb == self.len:
+                break
+            current_cell = i + 1
+        self.draw(state)
         return tuple(state)
 
     def __swap(self, to, zero, state):
