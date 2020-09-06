@@ -10,7 +10,7 @@ import argparse
 parser = argparse.ArgumentParser(description=' ', add_help=True, conflict_handler='resolve')
 parser.add_argument('-f', '--file', action='store', type = str, dest='file_name', help='file name')
 parser.add_argument('-n', '--input', action='store_true', dest='input', help='to use input format')
-parser.add_argument('-h', '--heuristic', choices=('manhattan', 'linear_conflict'), default = 'manhattan')
+parser.add_argument('-h', '--heuristic', choices=('hamming', 'manhattan', 'linear_conflict','l+m'), default = 'manhattan')
 parser.add_argument('-a', '--algorithm', choices=('a_star', 'ida*', 'greedy', 'uniform_cost'), default = 'a_star')
 
 args = parser.parse_args(sys.argv[1::])
