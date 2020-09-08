@@ -10,6 +10,7 @@ import argparse
 parser = argparse.ArgumentParser(description=' ', add_help=True, conflict_handler='resolve')
 parser.add_argument('-f', '--file', action='store', type = str, dest='file_name', help='file name')
 parser.add_argument('-n', '--input', action='store_true', dest='input', help='to use input format')
+parser.add_argument('-t', '--track', action='store_true', dest='track', help='to show answer track')
 parser.add_argument('-h', '--heuristic', choices=('hamming', 'manhattan', 'gaschnig', 'linear_conflict'), default = 'manhattan')
 parser.add_argument('-a', '--algorithm', choices=('a_star', 'ida*', 'greedy', 'uniform_cost'), default = 'a_star')
 
@@ -23,13 +24,17 @@ graph.draw(initial_state)
 print "and using " + args.algorithm + " search algorithm",
 if (args.algorithm != "uniform_cost"):
     print ("with " + args.heuristic + " heuristic function")
-    f = bfs.algo_dic[args.algorithm](graph, [initial_state, zero_index, 0], h.heuristic_dic[args.heuristic])
+    opened_set, general_set = bfs.algo_dic[args.algorithm](graph, [initial_state, zero_index, 0], h.heuristic_dic[args.heuristic])
 else:
     print('\n')
-    f = bfs.algo_dic["uniform_cost"](graph, [initial_state, zero_index])
+    opened_set, general_set = bfs.algo_dic["uniform_cost"](graph, [initial_state, zero_index])
 
-
-
+if (not graph.final_state in general_set):
+    print('unsolvable state')
+elif args.track:
+    draw.draw_path(graph, general_set)
+print('{:<41} {}'.format("Total number of states ever selected in the opened set (time)", opened_set.get_total_size()))
+print('{:<41} {}'.format("Maximum number of states in memory", len(general_set)))
 
 
     #in function

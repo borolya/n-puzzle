@@ -31,7 +31,7 @@ def uniform_cost_search(graph, start): # = breadth_first_search == dejstra
                 frontier.put(next, priority)
                 came_from[next[0]] = current[0]
                 level[next[0]] = current_level
-    draw.print_result(graph, frontier, came_from)
+    return frontier, came_from
 
 def gready_search(graph, start, heuristic): #start = (initial_state, zero_index, cost)
     print("\ngready_search:\n")
@@ -51,7 +51,7 @@ def gready_search(graph, start, heuristic): #start = (initial_state, zero_index,
                 priority = heuristic(current, next, graph)# + h.linear_conflict(next, graph) #???
                 frontier.put(next, priority)
                 came_from[next[0]] = current[0]
-    draw.print_result(graph, frontier, came_from)
+    return frontier, came_from
 
 def a_star(graph, start, heuristic):
     print("\nA*:\n")
@@ -76,7 +76,7 @@ def a_star(graph, start, heuristic):
                 frontier.put(next, priority)
                 came_from[next[0]] = current[0]
                 level[next[0]] = current_level
-    draw.print_result(graph, frontier, came_from)
+    return frontier, came_from
 
 
 def ida_search(graph, start, heuristic):
