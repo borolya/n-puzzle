@@ -16,7 +16,7 @@ def print_result(graph, opened_set, general_set): #(graph, frontier, came_from)
         print('unsolvable state')
     else:
         draw_path(graph, general_set)
-    print('{:<41} {}'.format("Total number of states in the opened set", opened_set.get_total_size()))
+    print('{:<41} {}'.format("Total number of states ever selected in the opened set (time complexity)", opened_set.get_total_size()))
     print('{:<41} {}'.format("Maximum number of states in memory", len(general_set)))
 
 

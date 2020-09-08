@@ -17,6 +17,25 @@ def hamming(priveous_state, state, graph):
             dist +=1
     return dist
 
+def gaschnig(priveous_state, state, graph):
+    dist = 0
+    candidate = list(state[0])
+    while not candidate == list(graph.final_state):
+        zero_i = candidate.index(0)
+        if zero_i == graph.final_state.index(0):
+            for i in range(graph.len):
+                if candidate[i] != graph.final_state[i]:
+                    candidate[i], candidate[zero_i] = candidate[zero_i], candidate[i]
+                    break
+        else:
+            i = candidate.index(graph.final_state[zero_i])
+            candidate[zero_i], candidate[i] = candidate[i], candidate[zero_i]
+        dist += 1
+    state[2] = dist
+    return (dist)
+
+
+
 def line_conflict(line, i, dest):
     conflicts = 0
     conflict_graph = {}
@@ -220,6 +239,7 @@ def manhattan_distance(priveous_state, state, graph):
 
 
 heuristic_dic = {
+    'gaschnig' : gaschnig,
     'hamming' : hamming,
     'linear_conflict' : linear_conflict,
     'manhattan' : manhattan_distance,
