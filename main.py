@@ -23,10 +23,10 @@ graph.draw(initial_state)
 print "and using " + args.algorithm + " search algorithm",
 if (args.algorithm != "uniform_cost"):
     print ("with " + args.heuristic + " heuristic function")
-    f = bfs.algo_dic[args.algorithm](graph, (initial_state, zero_index), h.heuristic_dic[args.heuristic])
+    f = bfs.algo_dic[args.algorithm](graph, [initial_state, zero_index, 0], h.heuristic_dic[args.heuristic])
 else:
     print('\n')
-    f = bfs.algo_dic["uniform_cost"](graph, (initial_state, zero_index))
+    f = bfs.algo_dic["uniform_cost"](graph, [initial_state, zero_index])
 
 
 

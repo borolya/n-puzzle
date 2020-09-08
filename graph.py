@@ -52,8 +52,8 @@ class Graph:
                 numb +=1
             dist -=1
             current_cell = i + size
-            #if numb == self.len: check!!!!
-            #    break
+            if numb == self.len:
+                break
             for i in range(current_cell, current_cell + dist*size, size): 
                 state[i] = numb
                 numb +=1
@@ -63,8 +63,8 @@ class Graph:
             for i in range(current_cell, current_cell - dist, -1):
                 state[i] = numb
                 numb +=1
-            #if numb == self.len:
-            #    break
+            if numb == self.len:
+                break
             current_cell = i - size
             dist -=1
             for i in range(current_cell, current_cell - dist*size, -size):
@@ -79,9 +79,9 @@ class Graph:
     def __swap(self, to, zero, state):
         l = list(state)
         l[to], l[zero] = l[zero], l[to]
-        return (tuple(l), to)
+        return [tuple(l), to, 0]
 
-    def draw(self, node): #node cell array
+    def draw(self, node): #node = cell array
         i = 0
         while i < len(node):
             if (((i + 1) % self.size)):

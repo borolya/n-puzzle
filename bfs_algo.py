@@ -33,13 +33,13 @@ def uniform_cost_search(graph, start): # = breadth_first_search == dejstra
                 level[next[0]] = current_level
     draw.print_result(graph, frontier, came_from)
 
-def gready_search(graph, start, heuristic):
+def gready_search(graph, start, heuristic): #start = (initial_state, zero_index, cost)
     print("\ngready_search:\n")
     frontier = PriorityQueue()
+    start[2] = heuristic(None, start, graph)
     frontier.put(start, 0)
     came_from = {}
     came_from[start[0]] = None
-    
     while not frontier.empty():
         current = frontier.get()
 
@@ -48,7 +48,7 @@ def gready_search(graph, start, heuristic):
 
         for next in graph.neighbors(current):
             if next[0] not in came_from:
-                priority = heuristic(next, graph)# + h.linear_conflict(next, graph) #???
+                priority = heuristic(current, next, graph)# + h.linear_conflict(next, graph) #???
                 frontier.put(next, priority)
                 came_from[next[0]] = current[0]
     draw.print_result(graph, frontier, came_from)
@@ -56,6 +56,7 @@ def gready_search(graph, start, heuristic):
 def a_star(graph, start, heuristic):
     print("\nA*:\n")
     frontier = PriorityQueue()
+    start[2] = heuristic(None, start, graph)
     frontier.put(start, 0)
     came_from = {}
     came_from[start[0]] = None
@@ -71,7 +72,7 @@ def a_star(graph, start, heuristic):
         for next in graph.neighbors(current):
             if (next[0] not in came_from or level[next[0]] > current_level):
             #if (next[0] not in came_from):
-                priority = heuristic(next, graph) + current_level #+ h.linear_conflict(next, graph)
+                priority = heuristic(current, next, graph) + current_level #+ h.linear_conflict(next, graph)
                 frontier.put(next, priority)
                 came_from[next[0]] = current[0]
                 level[next[0]] = current_level
