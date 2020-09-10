@@ -13,7 +13,6 @@ import heuristic as h
 
 
 def uniform_cost_search(graph, start): # = breadth_first_search == dejstra
-    print("\nuniform_cost_search:\n")
     frontier = PriorityQueue()
     frontier.put(start, 0)
     came_from = {}
@@ -34,7 +33,6 @@ def uniform_cost_search(graph, start): # = breadth_first_search == dejstra
     return frontier, came_from
 
 def gready_search(graph, start, heuristic): #start = (initial_state, zero_index, cost)
-    print("\ngready_search:\n")
     frontier = PriorityQueue()
     start[2] = heuristic(None, start, graph)
     frontier.put(start, 0)
@@ -54,7 +52,6 @@ def gready_search(graph, start, heuristic): #start = (initial_state, zero_index,
     return frontier, came_from
 
 def a_star(graph, start, heuristic):
-    print("\nA*:\n")
     frontier = PriorityQueue()
     start[2] = heuristic(None, start, graph)
     frontier.put(start, 0)
@@ -90,9 +87,8 @@ def ida_search(graph, start, heuristic):
             return f, True
         next_bound = float('inf')
         for next in graph.neighbors(current):
-            if next not in path:
-                if next[2] == None or next[2] == 0:
-                    next[2] = heuristic(current, next, graph)
+            if next[0] not in map(lambda x : x[0], path):
+                next[2] = heuristic(current, next, graph)
                 path.append(next)
                 f, found = search(path, graph, level + 1, bound, heuristic, time)
                 if found == True:
@@ -109,12 +105,12 @@ def ida_search(graph, start, heuristic):
     while True: 
         f, found = search(path, graph, 0, bound, heuristic, time)
         if found == True:
-            return (time, map(lambda x : x[0], path))
+            path = map(lambda x : x[0], path)
+            return (time, path[1:])
         if f == float('inf'):
             print("not found")
             return (time, map(lambda x : x[0], path))
         bound = f
-        print(bound)
 
 algo_dic = {
     "uniform_cost" : uniform_cost_search,

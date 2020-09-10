@@ -73,7 +73,6 @@ class Graph:
             if numb == self.len:
                 break
             current_cell = i + 1
-        self.draw(state)
         return tuple(state)
 
     def __swap(self, to, zero, state):
@@ -81,7 +80,7 @@ class Graph:
         l[to], l[zero] = l[zero], l[to]
         return [tuple(l), to, None]
 
-    def draw(self, node): #node = cell array
+    def draw(self, node):
         i = 0
         while i < len(node):
             if (((i + 1) % self.size)):

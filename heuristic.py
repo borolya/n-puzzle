@@ -1,14 +1,5 @@
 from graph import *
 
-# def match_priority(state, graph):  for stright order 
-#     dist = len(state[0])
-#     counter = 1
-#     while (counter < len(state[0]) - 1):
-#         if (state[0][counter - 1] == counter):
-#             dist -= 1
-#         counter += 1
-#     return dist
-
 def hamming(priveous_state, state, graph): 
     final_state = graph.final_state
     dist = 0
@@ -94,7 +85,6 @@ def linear_conflict(priveous_state, state, graph):
             i = state[1] % size
             dist -= line_conflict(priveous_state[0][i::size], i, dest) 
             dist += line_conflict(state[0][i::size], i, dest)
-        #add manhattan_distance
         dist -= iteration_manhattan_distance(state[1], priveous_state, graph)
         dist += iteration_manhattan_distance(priveous_state[1], state, graph)
         state[2] = dist
@@ -121,14 +111,6 @@ def manhattan_distance(priveous_state, state, graph):
         dist += iteration_manhattan_distance(priveous_state[1], state, graph)
 
         state[2] = dist
-    #olya I don't understand
-
-    #if state[0] in graph.priority_states:    
-        # print(graph.priority_states[state[0]])
-        # return graph.priority_states[state[0]] - 100
-    #   return dist - 100
-    #else:
-        #return dist
     return dist
 
 

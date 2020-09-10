@@ -16,8 +16,7 @@ class PriorityQueue:
         elem = heapq.heappop(self.elements)
         return elem[1]
 
-    #def reprioritize(self) ?
-
+    #def update(self) 
     
     def get_total_size(self):
         return (self.total_size)
