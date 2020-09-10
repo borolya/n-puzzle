@@ -34,41 +34,39 @@ def gaschnig(priveous_state, state, graph):
     state[2] = dist
     return (dist)
 
-
-
-def line_conflict(line, i, dest):
-    conflicts = 0
-    conflict_graph = {}
-    for j, u in enumerate(line):
-        if u == 0:
-            continue
-        dest_u = dest(u)
-        if i != dest_u[0]:
-            continue
-        for k in range(j + 1, len(line)):
-            v = line[k]
-            if v == 0:
-                continue
-            dest_v = dest(v)
-            if dest_v[0] == dest_u[0] and dest_v[1] <= dest_u[1]:
-                u_degree, u_nbrs = conflict_graph.get(u) or (0, set())
-                u_nbrs.add(v)
-                conflict_graph[u] = (u_degree + 1, u_nbrs)
-                v_degree, v_nbrs = conflict_graph.get(v) or (0, set())
-                v_nbrs.add(u)
-                conflict_graph[v] = (v_degree + 1, v_nbrs)
-        while sum([v[0] for v in conflict_graph.values()]) > 0:
-            popped = max(conflict_graph.keys(),
-                        key=lambda k: conflict_graph[k][0])
-            for neighbour in conflict_graph[popped][1]:
-                degree, vs = conflict_graph[neighbour]
-                vs.remove(popped)
-                conflict_graph[neighbour] = (degree - 1, vs)
-            conflict_graph.pop(popped)
-            conflicts += 1
-    return (conflicts * 2)
-
 def linear_conflict(priveous_state, state, graph):
+    def line_conflict(line, i, dest):
+        conflicts = 0
+        conflict_graph = {}
+        for j, u in enumerate(line):
+            if u == 0:
+                continue
+            dest_u = dest(u)
+            if i != dest_u[0]:
+                continue
+            for k in range(j + 1, len(line)):
+                v = line[k]
+                if v == 0:
+                    continue
+                dest_v = dest(v)
+                if dest_v[0] == dest_u[0] and dest_v[1] <= dest_u[1]:
+                    u_degree, u_nbrs = conflict_graph.get(u) or (0, set())
+                    u_nbrs.add(v)
+                    conflict_graph[u] = (u_degree + 1, u_nbrs)
+                    v_degree, v_nbrs = conflict_graph.get(v) or (0, set())
+                    v_nbrs.add(u)
+                    conflict_graph[v] = (v_degree + 1, v_nbrs)
+            while sum([v[0] for v in conflict_graph.values()]) > 0:
+                popped = max(conflict_graph.keys(),
+                            key=lambda k: conflict_graph[k][0])
+                for neighbour in conflict_graph[popped][1]:
+                    degree, vs = conflict_graph[neighbour]
+                    vs.remove(popped)
+                    conflict_graph[neighbour] = (degree - 1, vs)
+                conflict_graph.pop(popped)
+                conflicts += 1
+        return (conflicts * 2)
+
     size = graph.size
     dest_row = lambda x: [graph.final_state.index(x) // graph.size, graph.final_state.index(x) % graph.size]
     dest_column = lambda x: [graph.final_state.index(x) % graph.size, graph.final_state.index(x) // graph.size]

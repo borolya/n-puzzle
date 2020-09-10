@@ -25,4 +25,13 @@ class PriorityQueue:
     def len(self):
         return len(self.elements)
 
+class TimeComplexity:
+    def __init__(self):
+        self.time = 0
+
+    def add(self):
+        self.time +=1
+
+    def get_total_size(self):
+        return (self.time)
     

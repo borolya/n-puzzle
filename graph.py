@@ -79,7 +79,7 @@ class Graph:
     def __swap(self, to, zero, state):
         l = list(state)
         l[to], l[zero] = l[zero], l[to]
-        return [tuple(l), to, 0]
+        return [tuple(l), to, None]
 
     def draw(self, node): #node = cell array
         i = 0
