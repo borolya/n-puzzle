@@ -84,7 +84,7 @@ class Graph:
         i = 0
         while i < len(node):
             if (((i + 1) % self.size)):
-                print node[i],
+                print (node[i], end = ' ')
             else:
                 print(node[i])
             i += 1

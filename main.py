@@ -19,7 +19,7 @@ initial_state, size = pr.get_input(args)
 zero_index = initial_state.index(0)
 graph = g.Graph(initial_state, size, zero_index)
 
-print "\nWe use " + args.algorithm + " search algorithm",
+print ("\nWe use " + args.algorithm + " search algorithm", end = ' ')
 if (args.algorithm != "uniform_cost"):
     print ("with " + args.heuristic + " heuristic function\n")
     graph.draw(initial_state)
