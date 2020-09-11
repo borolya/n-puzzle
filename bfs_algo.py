@@ -59,16 +59,15 @@ def a_star(graph, start, heuristic):
     came_from[start[0]] = None
     level = {}
     level[start[0]] = 0
-    
     while not frontier.empty():
+        print(frontier.elements[0])
         current = frontier.get()
         current_level = level[current[0]] + 1
-
         if (graph.check_valid(current[0])):
             break
         for next in graph.neighbors(current):
             if (next[0] not in came_from or level[next[0]] > current_level):
-            #if (next[0] not in came_from):
+            #if (next[0] not in came_from):         
                 priority = heuristic(current, next, graph) + current_level #+ h.linear_conflict(next, graph)
                 frontier.put(next, priority)
                 came_from[next[0]] = current[0]

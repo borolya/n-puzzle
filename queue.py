@@ -1,25 +1,42 @@
 import heapq
+import itertools
 
 class PriorityQueue:
     def __init__(self):
         self.elements = []
-        self.total_size = 0
+        self.get_size = 0
+        self.unique_sequence_count = 0
+        self.entry_finder = {}
+        self.counter = itertools.count() 
+        self.REMOVED = '<removed-item>'
     
     def empty(self):
-        return len(self.elements) == 0
+        return self.unique_sequence_count == self.get_size
     
     def put(self, item, priority):
-        heapq.heappush(self.elements, [priority, item])
-    
-    def get(self):
-        self.total_size += 1
-        elem = heapq.heappop(self.elements)
-        return elem[1]
+        if item[0] in self.entry_finder:
+            self.remote_item(item[0])
+        else:
+            self.unique_sequence_count +=1
+        entry = [priority, self.unique_sequence_count, item]
+        self.entry_finder[item[0]] = entry
+        heapq.heappush(self.elements, entry)
 
-    #def update(self) 
+    def remote_item(self, item):
+        entry = self.entry_finder[item]
+        entry[-1] = self.REMOVED
+
+    def get(self):
+        self.get_size += 1
+        while self.elements:
+            priority, count, item = heapq.heappop(self.elements)
+            if item is not self.REMOVED:
+                del self.entry_finder[item[0]]
+                return item
+        raise KeyError('pop from an empty priority queue')
     
     def get_total_size(self):
-        return (self.total_size)
+        return (self.get_size)
 
     def len(self):
         return len(self.elements)
