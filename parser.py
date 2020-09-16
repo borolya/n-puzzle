@@ -1,6 +1,29 @@
 import sys
 import re
 
+
+def is_solvable(graph):
+    def polarity(graph, final_state, state):
+        invariant = 0
+        for pos1 in range(0, graph.len):
+            if state[pos1] == 0:
+                continue
+            for pos2 in range(pos1 + 1, graph.len):
+                if state[pos2] == 0:
+                    continue
+                if final_state.index(state[pos1]) > final_state.index(state[pos2]):
+                    invariant +=1
+        return (invariant)
+    
+    if graph.size % 2 == 1:
+        if polarity(graph, graph.final_state, graph.state) % 2 == 0:
+            print(polarity(graph, graph.final_state, graph.state))
+            return True
+    elif (polarity(graph, graph.final_state, graph.state) 
+            + graph.zero // graph.size) % 2 == 0:
+            return True
+    return False
+
 def get_input(args):
     initial_state_array = []
     size = None

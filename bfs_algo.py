@@ -60,7 +60,7 @@ def a_star(graph, start, heuristic):
     level = {}
     level[start[0]] = 0
     while not frontier.empty():
-        print(frontier.elements[0])
+        #print(frontier.elements[0])
         current = frontier.get()
         current_level = level[current[0]] + 1
         if (graph.check_valid(current[0])):
@@ -107,7 +107,6 @@ def ida_search(graph, start, heuristic):
             path = map(lambda x : x[0], path)
             return (time, path[1:])
         if f == float('inf'):
-            print("not found")
             return (time, map(lambda x : x[0], path))
         bound = f
 

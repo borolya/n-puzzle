@@ -19,6 +19,10 @@ initial_state, size = pr.get_input(args)
 zero_index = initial_state.index(0)
 graph = g.Graph(initial_state, size, zero_index)
 
+if pr.is_solvable(graph) == False:
+    graph.draw(initial_state)
+    print ("Unsolvable state")
+    sys.exit()
 print ("\nWe use " + args.algorithm + " search algorithm", end = ' ')
 if (args.algorithm != "uniform_cost"):
     print ("with " + args.heuristic + " heuristic function\n")
@@ -30,7 +34,7 @@ else:
     opened_set, general_set = bfs.algo_dic["uniform_cost"](graph, [initial_state, zero_index])
 
 if (not graph.final_state in general_set):
-     print('unsolvable state')
+     print('Unsolvable state')
 elif args.del_track == False:
     draw.draw_path(graph, general_set)
 print('{:<41} {}'.format("Total number of states ever selected in the opened set (time)", opened_set.get_total_size()))
