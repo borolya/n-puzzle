@@ -27,11 +27,11 @@ class PriorityQueue:
         entry[-1] = self.REMOVED
 
     def get(self):
-        self.get_size += 1
         while self.elements:
             priority, count, item = heapq.heappop(self.elements)
             if item is not self.REMOVED:
                 del self.entry_finder[item[0]]
+                self.get_size += 1
                 return item
         raise KeyError('pop from an empty priority queue')
     

@@ -104,10 +104,11 @@ def ida_search(graph, start, heuristic):
     while True: 
         f, found = search(path, graph, 0, bound, heuristic, time)
         if found == True:
-            path = map(lambda x : x[0], path)
+            path = list(map(lambda x : x[0], path))
             return (time, path[1:])
         if f == float('inf'):
-            return (time, map(lambda x : x[0], path))
+            print("not found")
+            return (time, list(map(lambda x : x[0], path)))
         bound = f
 
 algo_dic = {
@@ -117,42 +118,4 @@ algo_dic = {
     "ida" : ida_search
 }
 
-# def create_mask(graph):
-#     mask = {}
-#     state = graph.final_state
-#     mask[0] = state[0]
-#     counter = 1
-#     while (counter < graph.size):
-#         mask[graph.size * counter] = state[graph.size * counter]
-#         mask[counter] = state[counter]
-#         counter += 1
-#     return mask
-
-# def gready_search(graph, start, heuristic):
-#     print("\ngready_search:\n")
-#     frontier = PriorityQueue()
-#     frontier.put(start, 0)
-#     came_from = {}
-#     came_from[start[0]] = None
-#     final_states = []
-    
-#     while not frontier.empty():
-#         current = frontier.get()
-#         # print("current", current)
-#         # graph.draw(current[0])
-
-#         if (graph.check_valid(current)):
-#             graph.draw(current[0])
-#             graph.final_state = current[0]
-#             break
-
-#         for next in graph.neighbors(current):
-#             if next[0] not in came_from:
-#                 priority = heuristic(next, graph)
-#                 # print(priority)
-#                 frontier.put(next, priority)
-#                 came_from[next[0]] = current[0]
-#             # else: print(None, next)
-#         # print("\n\n\n")
-#     return [frontier, came_from, current[0]]
 
