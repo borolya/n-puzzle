@@ -16,7 +16,6 @@ def is_solvable(graph):
     
     if graph.size % 2 == 1:
         if polarity(graph, graph.final_state, graph.state) % 2 == 0:
-            print(polarity(graph, graph.final_state, graph.state))
             return True
     elif (polarity(graph, graph.final_state, graph.state) 
             + graph.zero // graph.size) % 2 == 0:

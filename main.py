@@ -34,8 +34,7 @@ else:
     opened_set, general_set = bfs.algo_dic["uniform_cost"](graph, [initial_state, zero_index])
 
 if (not graph.final_state in general_set):
-     print('Unsolvable state')
-elif args.del_track == False:
-    draw.draw_path(graph, general_set)
+    print('Unsolvable state')
+draw.draw_path(graph, general_set, args.del_track)
 print('{:<41} {}'.format("Total number of states ever selected in the opened set (time)", opened_set.get_total_size()))
 print('{:<41} {}'.format("Maximum number of states in memory", len(general_set)))
