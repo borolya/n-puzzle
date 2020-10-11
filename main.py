@@ -19,7 +19,14 @@ initial_state, size = pr.get_input(args)
 zero_index = initial_state.index(0)
 graph = g.Graph(initial_state, size, zero_index)
 
-if pr.is_solvable(graph) == False:
+if graph.size == 1 :
+    print("0\n")
+    print('{:<41} {}'.format("Number of moves required to transition", 0))
+    print('{:<41} {}'.format("Total number of states ever selected in the opened set (time)", 1))
+    print('{:<41} {}'.format("Maximum number of states in memory", 1))
+    sys.exit()
+    
+if pr.is_solvable(graph) == False and graph.size > 2:
     graph.draw(initial_state)
     print ("Unsolvable state")
     sys.exit()
@@ -35,6 +42,7 @@ else:
 
 if (not graph.final_state in general_set):
     print('Unsolvable state')
-draw.draw_path(graph, general_set, args.del_track)
+else :
+    draw.draw_path(graph, general_set, args.del_track)
 print('{:<41} {}'.format("Total number of states ever selected in the opened set (time)", opened_set.get_total_size()))
 print('{:<41} {}'.format("Maximum number of states in memory", len(general_set)))
