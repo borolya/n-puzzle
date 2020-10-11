@@ -8,39 +8,11 @@ class Graph:
         self.len = size * size
         self.zero = zero_pos
         self.final_state = self.__get_final_state()
-        #self.priority_states = self.calc_priority_states()
- 
-    # def calc_priority_states(self): #deeps 19 levels and path 
-    #     came_from = {}
-    #     level = {}
-    #     frontier = PriorityQueue()
-    #     frontier.put((self.final_state, self  .len - 1), 0) #(state, zero) priority
-    #     level[self.final_state] = 0
-    #     came_from[self.final_state] = 0
-
-    #     while not frontier.empty():
-
-    #         current = frontier.get() #current = item = (state, zero) 
-    #         #zero_pos = current[1]
-    #         current_level = level[current[0]] + 1
-    #         if current_level > 18: print(len(came_from)); break
-            
-    #         for next in self.neighbors(current):
-    #             if next[0] not in came_from:
-    #                 frontier.put(next, current_level)
-    #                 came_from[next[0]] = current_level
-    #                 level[next[0]] = current_level
-    #     return came_from
 
     def check_valid(self, state):
         return state == self.final_state
 
-    #def __get_final_state(self): #change to snail!
-    #    state = [i for i in range(1, self.len + 1)]
-    #    state[self.len - 1] = 0
-    #    return tuple(state)
-
-    def __get_final_state(self): #snail!
+    def __get_final_state(self):
         size = self.size
         dist = size
         state = [0] * self.len

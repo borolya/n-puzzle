@@ -1,7 +1,6 @@
 import sys
 import re
 
-
 def is_solvable(graph):
     def polarity(graph, final_state, state):
         invariant = 0
@@ -38,7 +37,7 @@ def get_input(args):
             fd = sys.stdin
         while True:
             try:
-                line = fd.readline() #check valid
+                line = fd.readline()
                 if line == '':
                     fd.close()
                     break
@@ -66,7 +65,6 @@ def get_input(args):
         fd.close()
         initial_state = tuple(map(int, initial_state_array))
     else:
-    #random generate by size 3
         initial_state = tuple(range(0, 9))
         size = 3
     return initial_state, size
